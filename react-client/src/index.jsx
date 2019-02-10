@@ -72,19 +72,13 @@ class App extends React.Component {
   }
 
   addBallCount(id, color) {
-    //const data = {'id': id, 'color': color}
     $.get(`/user?id=${id}&color=${color}`)
-    // $.ajax({
-    //   type: 'GET',
-    //   url: '/user',
-    //   data: data,
-    //   //success: (result) => {console.log('post success', result)},
-    //   dataType: 'json'
-    // })
+
   }
 
   render () {
     return (<div>
+      Welcome!  Below you will see a {this.state.color} ball which color was generated randomly.  It will remain that color every time you visit this site unless you use a different browser or delete your cookies.
       <Ball color={this.state.color}/>
     </div>)
   }
