@@ -32,7 +32,7 @@ class App extends React.Component {
       this.getIp((ip) => {
         this.setState({ip: ip});
         //add the ball count to the user
-        //this.addBallCount(this.state.ip, this.state.color)
+        this.addBallCount(this.state.ip, this.state.color)
       })
 
     //else set state to random color and send cookie with color
@@ -44,7 +44,7 @@ class App extends React.Component {
         this.getIp((ip) => {
           this.setState({ip: ip});
           //add the ball count to the user
-          //this.addBallCount(this.state.ip, this.state.color)
+          this.addBallCount(this.state.ip, this.state.color)
         })
       });
     }
