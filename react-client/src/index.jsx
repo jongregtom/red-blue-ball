@@ -24,21 +24,26 @@ class App extends React.Component {
     //if a cookie color was already sent, set the color state to that color
     if (document.cookie) {
       this.setState({color: document.cookie})
+      //get the ip address
+      this.getIp((ip) => {
+        this.setState({ip: ip});
+        //add the ball count to the user
+        //this.addBallCount(this.state.ip, this.state.color)
+      })
+
     //else set state to random color and send cookie with color
     } else {
       this.getRandomColor((result) => {
         this.setState({color: result});
         this.addColorCookie(result)
+        //get the ip address
+        this.getIp((ip) => {
+          this.setState({ip: ip});
+          //add the ball count to the user
+          //this.addBallCount(this.state.ip, this.state.color)
+        })
       });
     }
-    //get the ip address
-    this.getIp((ip) => {
-      this.setState({ip: ip});
-    })
-    //add the ball count to the user
-    this.addBallCount(this.state.ip, this.state.color, (result) => {
-      console.log('result', result)
-    })
   }
 
   getRandomColor(callback) {
@@ -52,7 +57,6 @@ class App extends React.Component {
 
   addColorCookie(color) {
     document.cookie = color;
-    console.log('cookie sent', document.cookie);
   }
 
   getIp(cb) {
@@ -67,10 +71,16 @@ class App extends React.Component {
     })
   }
 
-  addBallCount(id, color, callback) {
-    $.post('/user', function(response) {
-      cb(response)
-    })
+  addBallCount(id, color) {
+    //const data = {'id': id, 'color': color}
+    $.get(`/user?id=${id}&color=${color}`)
+    // $.ajax({
+    //   type: 'GET',
+    //   url: '/user',
+    //   data: data,
+    //   //success: (result) => {console.log('post success', result)},
+    //   dataType: 'json'
+    // })
   }
 
   render () {

@@ -8,10 +8,20 @@ const db = require('../database/index.js');
 var app = express();
 
 app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.get('/users', function(req, res) {
 	db.selectAll((users) => {
 		res.send(users)
+	})
+})
+
+app.get('/user', function(req, res) {
+	db.addBallCount(req.query.id, req.query.color, () => {
+	  res.end();
 	})
 })
 

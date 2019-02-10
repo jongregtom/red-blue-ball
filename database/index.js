@@ -39,35 +39,38 @@ var addBallCount = function(id, color, callback) {
       //if user doesn't exist, create user and add color count
       if (result.length === 0) {
         if (color === 'blue') {
-          const user = new User({
+          var user = new User({
             'id': id,
             'blue_count': 1,
             'red_count': 0
            })
         } else if (color === 'red') {
-          const user = new User({
+          var user = new User({
             'id': id,
             'blue_count': 0,
             'red_count': 1
            })
         }
-        user.save();
+        user.save(function(err, user) {
+          if (err) console.log(err);
+          callback(user)
+        });
       //add count to user if they exist
       } else {
         if (color === 'blue') {
-          User.findOneAndUpdate({'id': id}, {$inc: {blue_count: 1}}, function(err, data) {
+          User.findOneAndUpdate({'id': id}, {$inc: {blue_count: 1}}, function(err, user) {
             if(err) {
               callback(err, null);
             } else {
-              callback(null, users);
+              callback(null, user);
             }
           })
         } else if (color === 'red') {
-          User.findOneAndUpdate({'id': id}, {$inc: {red_count: 1}}, function(err, data) {
+          User.findOneAndUpdate({'id': id}, {$inc: {red_count: 1}}, function(err, user) {
             if(err) {
                callback(err, null);
              } else {
-               callback(null, users);
+               callback(null, user);
              }
            })
         }
