@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-//import Users from './components/Users.jsx';
+import Users from './components/Users.jsx';
 import Ball from './components/Ball.jsx';
+import Header from './components/Header.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,13 +11,16 @@ class App extends React.Component {
     this.state = { 
       //users: [{'jon': {'red': 1, 'blue': 0}}],
       color: '',
-      ip: ''
+      ip: '',
+      users: [],
+      clicked: false
     }
     this.getRandomColor = this.getRandomColor.bind(this);
     this.addColorCookie = this.addColorCookie.bind(this);
     this.getIp = this.getIp.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.addBallCount = this.addBallCount.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -76,9 +80,22 @@ class App extends React.Component {
 
   }
 
+  handleClick() {
+    this.getUsers((users) => {
+      this.setState({users: users})
+      this.setState({clicked: true})
+    })
+  }
+
   render () {
+    if (this.state.clicked === true) {
+      return (<div>
+        <Users users={this.state.users}/>
+        </div>
+        )
+    }
     return (<div>
-      Welcome!  Below you will see a {this.state.color} ball which color was generated randomly.  It will remain that color every time you visit this site unless you use a different browser or delete your cookies.
+      <Header handleClick={this.handleClick} color={this.state.color}/>
       <Ball color={this.state.color}/>
     </div>)
   }
