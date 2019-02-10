@@ -9,7 +9,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      //users: [{'jon': {'red': 1, 'blue': 0}}],
       color: '',
       ip: '',
       users: [],

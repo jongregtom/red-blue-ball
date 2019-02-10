@@ -1,15 +1,3 @@
-// import React from 'react';
-
-// const User = (props) => (
-//   <div>
-//     IP Address: { props.user.id }<br/>
-//     Red Balls: {props.user.red_count}<br/>
-//     Blue Balls: {props.user.blue_count}<br/><br/>
-//   </div>
-// )
-
-// export default User;
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
